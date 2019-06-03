@@ -1,11 +1,17 @@
 package com.capgemini.bookStore.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,9 +24,43 @@ public class Order {
 	private Date orderDate;
 	private double total;
 	private boolean orderStatus;
-	// private Set<OrderItems> orderitems = new HashSet<OrderItems>();
+	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
+	 private List<OrderItem> orderitems = new ArrayList<OrderItem>();
 	private String paymentMode;
-	private String customerId;
+	//private String customerId;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="customerId")
+	private Customer orderCust;
+
+	public Order(String orderId, Date orderDate, double total, boolean orderStatus, List<OrderItem> orderitems,
+			String paymentMode,  Customer orderCust) {
+		super();
+		this.orderId = orderId;
+		this.orderDate = orderDate;
+		this.total = total;
+		this.orderStatus = orderStatus;
+		this.orderitems = orderitems;
+		this.paymentMode = paymentMode;
+		
+		this.orderCust = orderCust;
+	}
+
+	public List<OrderItem> getOrderitems() {
+		return orderitems;
+	}
+
+	public void setOrderitems(List<OrderItem> orderitems) {
+		this.orderitems = orderitems;
+	}
+
+	public Customer getOrderCust() {
+		return orderCust;
+	}
+
+	public void setOrderCust(Customer orderCust) {
+		this.orderCust = orderCust;
+	}
 
 	public Order() {
 		super();
@@ -35,7 +75,7 @@ public class Order {
 		this.total = total;
 		this.orderStatus = orderStatus;
 		this.paymentMode = paymentMode;
-		this.customerId = customerId;
+		
 	}
 
 	public String getOrderId() {
@@ -78,19 +118,13 @@ public class Order {
 		this.paymentMode = paymentMode;
 	}
 
-	public String getCustomerId() {
-		return customerId;
-	}
 
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
+		
 		result = prime * result + ((orderDate == null) ? 0 : orderDate.hashCode());
 		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
 		result = prime * result + (orderStatus ? 1231 : 1237);
@@ -110,11 +144,7 @@ public class Order {
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		if (customerId == null) {
-			if (other.customerId != null)
-				return false;
-		} else if (!customerId.equals(other.customerId))
-			return false;
+		
 		if (orderDate == null) {
 			if (other.orderDate != null)
 				return false;
@@ -140,7 +170,7 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", orderDate=" + orderDate + ", total=" + total + ", orderStatus="
-				+ orderStatus + ", paymentMode=" + paymentMode + ", customerId=" + customerId + "]";
+				+ orderStatus + ", orderitems=" + orderitems + ", paymentMode=" + paymentMode + ", orderCust=" + orderCust + "]";
 	}
 	
 }

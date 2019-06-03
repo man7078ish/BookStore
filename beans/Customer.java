@@ -1,12 +1,16 @@
 package com.capgemini.bookStore.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +29,8 @@ public class Customer {
 	private String zipCode;
 	private String country;
 	private Date registrationDate;
+	@OneToMany(mappedBy="orderCust",cascade=CascadeType.ALL)
+	 private List<Order> orderitems = new ArrayList<Order>();
 
 	/************* Constructor ***************/
 

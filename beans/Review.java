@@ -18,37 +18,24 @@ public class Review {
 	private int rating;
 	private String headLine;
 	private String comment;
-	private String bookId;
+	//private String book_Id;
 	private String customerId;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="bookId")
 	private Books bookReview;
-	
-	
-	public Books getBookReview() {
-		return bookReview;
-	}
-
-	public void setBookReview(Books bookReview) {
-		this.bookReview = bookReview;
-	}
-
-	public Review(String reviewID, int rating, String headLine, String comment, String bookId, String customerId,
-			Books bookReview) {
+	public Review(String reviewID, int rating, String headLine, String comment, String customerId, Books bookReview) {
 		super();
 		this.reviewID = reviewID;
 		this.rating = rating;
 		this.headLine = headLine;
 		this.comment = comment;
-		this.bookId = bookId;
 		this.customerId = customerId;
 		this.bookReview = bookReview;
 	}
-
 	public Review() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	
 	public String getReviewID() {
 		return reviewID;
 	}
@@ -73,78 +60,25 @@ public class Review {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public String getBookId() {
-		return bookId;
-	}
-	public void setBookId(String bookId) {
-		this.bookId = bookId;
-	}
 	public String getCustomerId() {
 		return customerId;
 	}
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
-	
-	
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((bookId == null) ? 0 : bookId.hashCode());
-		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
-		result = prime * result + ((headLine == null) ? 0 : headLine.hashCode());
-		result = prime * result + rating;
-		result = prime * result + ((reviewID == null) ? 0 : reviewID.hashCode());
-		return result;
+	public Books getBookReview() {
+		return bookReview;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Review other = (Review) obj;
-		if (bookId == null) {
-			if (other.bookId != null)
-				return false;
-		} else if (!bookId.equals(other.bookId))
-			return false;
-		if (comment == null) {
-			if (other.comment != null)
-				return false;
-		} else if (!comment.equals(other.comment))
-			return false;
-		if (customerId == null) {
-			if (other.customerId != null)
-				return false;
-		} else if (!customerId.equals(other.customerId))
-			return false;
-		if (headLine == null) {
-			if (other.headLine != null)
-				return false;
-		} else if (!headLine.equals(other.headLine))
-			return false;
-		if (rating != other.rating)
-			return false;
-		if (reviewID == null) {
-			if (other.reviewID != null)
-				return false;
-		} else if (!reviewID.equals(other.reviewID))
-			return false;
-		return true;
+	public void setBookReview(Books bookReview) {
+		this.bookReview = bookReview;
 	}
-
 	@Override
 	public String toString() {
 		return "Review [reviewID=" + reviewID + ", rating=" + rating + ", headLine=" + headLine + ", comment=" + comment
-				+ ", bookId=" + bookId + ", customerId=" + customerId + ", bookReview=" + bookReview + "]";
+				+ ", customerId=" + customerId + ", bookReview=" + bookReview + "]";
 	}
 	
+	
+
 	
 	}
